@@ -73,7 +73,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: ${DEPLOY_TO}
+              name: ${KUBE_NAMESPACE}
       ports:
         - protocol: TCP
           port: ${ELASTICSEARCH_CLIENT_PORT}

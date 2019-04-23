@@ -4,7 +4,7 @@ pipeline:
     commands:
       - echo dummy
     when:
-      branch: [CDMP-2264]
+      branch: [CDMP-2264-dummy]
 
   trigger_deploy:
       secrets:

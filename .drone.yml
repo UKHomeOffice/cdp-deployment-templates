@@ -3,6 +3,7 @@ pipeline:
 
       secrets:
         - drone_server
+        - drone_token
         - default_environment
       image: quay.io/ukhomeofficedigital/drone-trigger:latest
       drone_server: ${DRONE_SERVER}

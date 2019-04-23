@@ -14,6 +14,6 @@ pipeline:
       image: quay.io/ukhomeofficedigital/drone-trigger:latest
       drone_server: ${DRONE_SERVER}
       repo: UKHomeOffice/cdp-environments-test
-      branch: [master, CDMP-2264]
+      # branch: [master, CDMP-2264]
       deploy_to: ${DEFAULT_ENVIRONMENT:-cdp-dev}
       # params: "IMAGE_NAME=foo/bar:${DRONE_COMMIT_SHA},APP_ID=123"

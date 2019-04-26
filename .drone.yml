@@ -1,11 +1,4 @@
 pipeline:
-  dummy:
-    image: quay.io/ukhomeofficedigital/cdp-ci:0.4.1
-    commands:
-      - echo dummy
-    when:
-      branch: [CDMP-2264-dummy]
-
   trigger_deploy:
       secrets:
         - drone_server

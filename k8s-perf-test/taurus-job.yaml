@@ -1,0 +1,36 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: taurus-job
+spec:
+  backoffLimit: 5
+  activeDeadlineSeconds: 100
+  template:
+    spec:
+      containers:
+      - name: taurus-job
+        image: UKHomeOffice/taurus
+        command: 
+          - bzt -l bzt.log /bzt-tests-config/*.yml
+
+        volumeMounts:
+          - name: bzt
+            mountPath: /bzt
+
+          - name: bzt-tests-config
+            mountPath: /bzt-tests-config
+
+      restartPolicy: Never
+
+      volumes:
+      - name: bzt
+        hostPath:
+          path: /bzt 
+          type: Directory
+
+      - name: bzt-tests-config
+        configMap:
+          name: bzt-tests-config
+
+

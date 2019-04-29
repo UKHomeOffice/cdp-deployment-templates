@@ -1,0 +1,17 @@
+---
+  execution:
+  - concurrency: 5
+    hold-for: 30s
+    ramp-up: 10s
+    scenario: simple
+  
+  scenarios:
+    simple:
+      data-sources:
+      - graph-add-persons.csv
+      requests:
+      - label: add
+        method: POST
+        url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+        body: |
+          {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}

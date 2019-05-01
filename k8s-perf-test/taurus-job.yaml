@@ -1,0 +1,45 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ${PERF_TEST_NAME}
+spec:
+  backoffLimit: 5
+  activeDeadlineSeconds: ${PERF_TEST_TIMEOUT}
+  template:
+    spec:
+      securityContext:
+        fsGroup: 1000
+
+      containers:
+      - name: taurus-perf-test
+        image: quay.io/ukhomeofficedigital/docker-taurus
+        command: 
+          - sh
+          - -c
+          - "bzt -l bzt.log /bzt-config/${PERF_TEST_CONF_GLOB}"
+
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+
+        volumeMounts:
+          # - name: bzt
+          #   mountPath: /bzt
+
+          - name: bzt-tests-config
+            mountPath: /bzt-config
+
+      restartPolicy: Never
+
+      volumes:
+      # - name: bzt
+      #   hostPath:
+      #     path: /bzt 
+      #     type: Directory
+
+      - name: bzt-tests-config
+        configMap:
+          name: bzt-tests-config
+
+

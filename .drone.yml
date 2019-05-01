@@ -1,11 +1,12 @@
-pipeline:
-  trigger_deploy:
-
-      secrets:
-        - drone_server
-      image: quay.io/ukhomeofficedigital/drone-trigger:latest
-      drone_server: ${DRONE_SERVER}
-      repo: github.com/UKHomeOffice/cdp-environments-test
-      branch: [master, CDMP-2264]
-      deploy_to: cdp-dev
-      # params: "IMAGE_NAME=foo/bar:${DRONE_COMMIT_SHA},APP_ID=123"
+# pipeline:
+#   trigger_deploy:
+#       secrets:
+#         - drone_server
+#         - drone_token
+#         - default_environment
+#       image: quay.io/ukhomeofficedigital/drone-trigger:latest
+#       drone_server: ${DRONE_SERVER}
+#       repo: UKHomeOffice/cdp-environments-test
+#       # branch: [master]
+#       deploy_to: ${DEFAULT_ENVIRONMENT:-cdp-dev}
+#       # params: "IMAGE_NAME=foo/bar:${DRONE_COMMIT_SHA},APP_ID=123"

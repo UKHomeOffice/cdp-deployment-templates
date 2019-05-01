@@ -85,4 +85,23 @@ spec:
   selector:
     name: tinkerpop-graphdb-schema-loader
   sessionAffinity: None
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-network-policy-tinkerpop-graphdb-schema-loader
+spec:
+  podSelector:
+    matchLabels:
+      name: tinkerpop-graphdb-schema-loader
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ${KUBE_NAMESPACE}
+      ports:
+        - protocol: TCP
+          port: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+
   

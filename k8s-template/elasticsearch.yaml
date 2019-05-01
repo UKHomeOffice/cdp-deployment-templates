@@ -6,12 +6,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      run: elasticsearch
+      name: elasticsearch
   replicas: ${ELASTICSEARCH_K8S_REPLICAS}
   template:
     metadata:
       labels:
-        run: elasticsearch
+        name: elasticsearch
     spec:
       containers:
         - name: elasticsearch
@@ -46,7 +46,7 @@ kind: Service
 metadata:
   name: elasticsearch
   labels:
-    run: elasticsearch
+    name: elasticsearch
     role: service
 spec:
   ports:
@@ -57,7 +57,7 @@ spec:
       protocol: TCP
       port: ${ELASTICSEARCH_SERVER_PORT}
   selector:
-    run: elasticsearch
+    name: elasticsearch
   sessionAffinity: None
 
 ---
@@ -68,7 +68,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      run: elasticsearch
+      name: elasticsearch
   ingress:
     - from:
         - namespaceSelector:

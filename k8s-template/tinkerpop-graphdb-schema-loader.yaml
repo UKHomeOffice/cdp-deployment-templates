@@ -3,6 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: tinkerpop-graphdb-schema-loader
+
 spec:
   replicas: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REPLICAS}
   strategy:

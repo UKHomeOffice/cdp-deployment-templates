@@ -5,13 +5,10 @@ whitelistObjectNames: ["graphdb:*"]
 #blacklistObjectNames: ["org.apache.cassandra.metrics:type=ColumnFamily,*"]
 
 rules:
-  - pattern: 'graphdb:name=(\w+)><>Value: (\d+)'
-    name: $1
-    value: $2
-    valueFactor: 0.001
+  - pattern: graphdb<name=(\S*)><>Count
+    name: graphdb_$1
     labels: {}
     help: "Graphdb metric $1"
-    type: GAUGE
     attrNameSnakeCase: false
 
 # Generic gauges with 0-2 labels

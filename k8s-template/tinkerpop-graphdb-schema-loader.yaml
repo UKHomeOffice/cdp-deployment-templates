@@ -13,12 +13,13 @@ spec:
       maxSurge: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REPLICAS}
   template:
     metadata:
+      labels:
+        name: tinkerpop-graphdb-schema-loader
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "${GRAPHDB_COMMON_PROMETHEUS_JMX_PORT}"
+        prometheus.io/path: "/metrics"
 
-      labels:
-        name: tinkerpop-graphdb-schema-loader
     spec:
       containers:
         - name: tinkerpop-graphdb-schema-loader

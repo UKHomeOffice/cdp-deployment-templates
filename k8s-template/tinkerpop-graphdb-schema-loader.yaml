@@ -43,7 +43,7 @@ spec:
             - name: GRAPHDB_OPTS
               value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap   -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false 
             - name: SYSDIG_AGENT_CONF
-              value: '{"jmx":{"per_process_beans":{"graphdb":{"pattern":"uk.gov.homeoffice.cdp.App","beans":[{"query":"graphdb:name=org.janusgraph.query.graph.execute.time"}]}}}}'
+              value: '{"jmx":{"per_process_beans":{"graphdb":{"pattern":"uk.gov.homeoffice.cdp.App","beans":[{"query":"graphdb:name=org.janusgraph.query.graph.execute.time","attributes":[{"name":"Max"},{"name":"Min"},{"name":"Mean"},{"name":"Count","type":"counter"}]}]}}}}'
           resources:
             requests:
               cpu: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REQUESTS_CPU}

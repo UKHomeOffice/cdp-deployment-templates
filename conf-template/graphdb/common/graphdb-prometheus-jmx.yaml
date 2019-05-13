@@ -3,7 +3,17 @@ lowercaseOutputName: true
 whitelistObjectNames: ["graphdb:*"]
 # ColumnFamily is an alias for Table metrics
 #blacklistObjectNames: ["org.apache.cassandra.metrics:type=ColumnFamily,*"]
+
 rules:
+  - pattern: 'graphdb:name=(\w+)><>Value: (\d+)'
+    name: $1
+    value: $2
+    valueFactor: 0.001
+    labels: {}
+    help: "Graphdb metric $1"
+    type: GAUGE
+    attrNameSnakeCase: false
+
 # Generic gauges with 0-2 labels
 #- pattern: org.apache.cassandra.metrics<type=(\S*)(?:, ((?!scope)\S*)=(\S*))?(?:, scope=(\S*))?, name=(\S*)><>Value
 #  name: cassandra_$1_$5

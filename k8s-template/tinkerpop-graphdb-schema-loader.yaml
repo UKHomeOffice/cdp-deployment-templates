@@ -15,6 +15,11 @@ spec:
     metadata:
       labels:
         name: tinkerpop-graphdb-schema-loader
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+
     spec:
       containers:
         - name: tinkerpop-graphdb-schema-loader
@@ -40,8 +45,14 @@ spec:
                   key: AWS_SECRET_ACCESS_KEY
             - name: AWS_DEFAULT_REGION
               value: eu-west-2
-            - name: PVGDPR_OPTS
-              value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap  -Dcom.sun.management.jmxremote
+            - name: GRAPHDB_OPTS
+              value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap   -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -javaagent:/opt/graphdb/lib/jmx-prometheus-javaagent.jar=8080:/opt/graphdb/conf/graphdb-prometheus-jmx.yaml 
+
+            - name: SYSDIG_AGENT_CONF
+              value: '{"prometheus":{"enabled":true}}'
+
+              # Unfortunately, This does not work, as JMX changes require agent configs to be changed.
+              #value: '{"jmx":{"per_process_beans":{"graphdb":{"pattern":"uk.gov.homeoffice.cdp.App","beans":[{"query":"graphdb:name=org.janusgraph.query.graph.execute.time","attributes":[{"name":"Max"},{"name":"Min"},{"name":"Mean"},{"name":"Count","type":"counter"}]}]}}}}'
           resources:
             requests:
               cpu: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REQUESTS_CPU}
@@ -61,6 +72,7 @@ spec:
               port: 3001
             initialDelaySeconds: 5
             periodSeconds: 30
+          command: ["/opt/graphdb/bin/run-graph.sh", "/opt/graphdb/conf/gremlin-server-embedded.yml" ]
       restartPolicy: Always
       volumes:
         - name: config

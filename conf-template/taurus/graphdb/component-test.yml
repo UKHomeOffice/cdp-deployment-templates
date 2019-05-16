@@ -1,22 +1,26 @@
 ---
-  execution:
-  - concurrency: 5
-    hold-for: 30s
-    ramp-up: 10s
-    scenario: simple
+execution:
+- concurrency: 5
+  hold-for: 30s
+  ramp-up: 10s
+  scenario: simple
 
-  scenarios:
-    simple:
-      data-sources:
-      - graph-add-persons.csv
-      requests:
-      - label: add
-        method: POST
-        url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
-        body: |
-          {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
-      criteria:
-        #Average latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms for 10s, stop as failed
-        Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed
-        Found unsuccessful query results: failure of QueryResults>0%, stop as failed
+scenarios:
+  simple:
+    data-sources:
+    - graph-add-persons.csv
+    requests:
+    - label: add
+      method: POST
+      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      body: |
+        {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
+    criteria:
+      #Average latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms for 10s, stop as failed
+      # Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed
+       #Found unsuccessful query results: failure of QueryResults>0%, stop as failed
+      - fail>0%   
+      - p90>50ms   
+
+        
 

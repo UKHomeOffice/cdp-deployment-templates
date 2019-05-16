@@ -4,6 +4,14 @@
     hold-for: 30s
     ramp-up: 10s
     scenario: simple
+
+  reporting:
+  - module: passfail
+    criteria:
+      #Average latency of query responses greater than the SLA (150ms): avg-rt of Query Responses>150ms for 10s, stop as failed
+      Average latency of query responses greater than the SLA (150ms): avg-rt of Query Responses>150ms, stop as failed
+      Found unsuccessful query results: failure of Query Results>0%, stop as failed
+
   
   scenarios:
     simple:

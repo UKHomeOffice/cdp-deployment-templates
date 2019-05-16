@@ -4,8 +4,10 @@ kind: Job
 metadata:
   name: ${PERF_TEST_NAME}
 spec:
-  backoffLimit: 5
+  backoffLimit: 1
   activeDeadlineSeconds: ${PERF_TEST_TIMEOUT}
+  ttlSecondsAfterFinished: 30
+
   template:
     spec:
       securityContext:

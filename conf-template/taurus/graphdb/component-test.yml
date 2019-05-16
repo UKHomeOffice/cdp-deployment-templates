@@ -5,6 +5,13 @@ execution:
   ramp-up: 10s
   scenario: simple
 
+reporting:
+- module: passfail
+  criteria:
+  - avg-rt of add>50ms, stop as failed
+  - fail of add>0%, stop as failed
+
+
 scenarios:
   simple:
     data-sources:
@@ -16,11 +23,11 @@ scenarios:
       body: |
         {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
     criteria:
+      - p90>20ms   
+
       #Average latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms for 10s, stop as failed
       # Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed
        #Found unsuccessful query results: failure of QueryResults>0%, stop as failed
-      - fail>0%   
-      - p90>20ms   
 
         
 

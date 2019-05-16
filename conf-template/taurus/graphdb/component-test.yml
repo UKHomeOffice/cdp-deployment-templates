@@ -20,7 +20,7 @@ scenarios:
       # Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed
        #Found unsuccessful query results: failure of QueryResults>0%, stop as failed
       - fail>0%   
-      - p90>50ms   
+      - p90>20ms   
 
         
 

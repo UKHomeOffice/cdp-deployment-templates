@@ -14,6 +14,7 @@ spec:
       containers:
       - name: taurus-perf-test
         image: quay.io/ukhomeofficedigital/docker-taurus
+        imagePullPolicy: Always
         command: 
           - sh
           - -c

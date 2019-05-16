@@ -5,14 +5,6 @@
     ramp-up: 10s
     scenario: simple
 
-  reporting:
-  - module: passfail
-    criteria:
-      #Average latency of query responses greater than the SLA (150ms): avg-rt of Query Responses>150ms for 10s, stop as failed
-      Average latency of query responses greater than the SLA (15ms): avg-rt of Query Responses>15ms, stop as failed
-      Found unsuccessful query results: failure of Query Results>0%, stop as failed
-
-  
   scenarios:
     simple:
       data-sources:
@@ -23,3 +15,8 @@
         url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
         body: |
           {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
+      criteria:
+        #Average latency of query responses greater than the SLA (150ms): avg-rt of Query Responses>150ms for 10s, stop as failed
+        Average latency of query responses greater than the SLA (15ms): avg-rt of Query Responses>15ms, stop as failed
+        Found unsuccessful query results: failure of Query Results>0%, stop as failed
+

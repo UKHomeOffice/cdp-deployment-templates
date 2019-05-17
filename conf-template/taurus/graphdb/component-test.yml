@@ -11,9 +11,17 @@ reporting:
   - avg-rt of add>50ms, stop as failed
   - fail of add>0%, stop as failed
 
+- module: final-stats
+  summary: true  # overall samples count and percent of failures
+  percentiles: true  # display average times and percentiles
+  summary-labels: false # provides list of sample labels, status, percentage of completed, avg time and errors
+  failed-labels: true  # provides list of sample labels with failures
+  test-duration: true  # provides test duration
+  dump-csv: /tmp/test-res.csv
+
 
 scenarios:
-  simple:
+  addData:
     data-sources:
     - graph-add-persons.csv
     requests:
@@ -22,6 +30,35 @@ scenarios:
       url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
       body: |
         {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
+    criteria:
+      - p90>200ms   
+
+  receiveData:
+    data-sources:
+    - graph-add-persons.csv
+    requests:
+    - label: receive
+      method: POST
+      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      body: |
+        {"gremlin": "g.V().has('P.identity.id',eq('${PERSON_ID}')).count()"}
+
+      extract-jsonpath:
+        status_code: $.status.code
+        num_entries: $.result.data.@value[0].@value
+
+    # branch on `status_code` value
+    - if: '"${status_code}" != "200"'
+      then:
+        - action: stop-now
+          target: all-threads
+
+    - if: '"${num_entries}" == "0"'
+      then:
+        - action: stop-now
+          target: all-threads
+
+
     criteria:
       - p90>200ms   
 

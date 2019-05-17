@@ -6,7 +6,7 @@ metadata:
 spec:
   # LPPM - 16May2019 - WARNING: this should be set to zero; 
   # otherwise, the job will keep on being re-tried and 
-  # cause issues with the test script
+  # cause issues with the test script if SLAs are breached.
   backoffLimit: 0
   activeDeadlineSeconds: ${PERF_TEST_TIMEOUT}
   ttlSecondsAfterFinished: 30

@@ -276,6 +276,11 @@ data:
     #
 
     gremlin.graph=org.janusgraph.core.JanusGraphFactory
+
+    metrics.enabled=true
+    metrics.jmx.enabled=true
+    metrics.jmx.domain=graphdb
+
     #metrics.enabled=true
     #metrics.prefix=j
     #metrics.csv.interval=1000
@@ -582,11 +587,17 @@ spec:
     metadata:
       annotations:
         downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
       labels:
         name: tinkerpop-graphdb-schema-loader
     spec:
       containers:
-      - env:
+      - command:
+        - /opt/graphdb/bin/run-graph.sh
+        - /opt/graphdb/conf/gremlin-server-embedded.yml
+        env:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
@@ -599,8 +610,12 @@ spec:
               name: tinkerpop-graphdb
         - name: AWS_DEFAULT_REGION
           value: eu-west-2
-        - name: PVGDPR_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap  -Dcom.sun.management.jmxremote
+        - name: GRAPHDB_OPTS
+          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap   -Dcom.sun.management.jmxremote=true
+            -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false
+            -Dcom.sun.management.jmxremote.ssl=false -javaagent:/opt/graphdb/lib/jmx-prometheus-javaagent.jar=8080:/opt/graphdb/conf/graphdb-prometheus-jmx.yaml
+        - name: SYSDIG_AGENT_CONF
+          value: '{"prometheus":{"enabled":true}}'
         image: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_IMAGE}
         imagePullPolicy: Always
         livenessProbe:

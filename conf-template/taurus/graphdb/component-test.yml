@@ -1,9 +1,15 @@
 ---
 execution:
 - concurrency: 5
-  hold-for: 30s
-  ramp-up: 10s
-  scenario: simple
+  hold-for: 20s
+  ramp-up: 5s
+  scenario: addData
+
+- concurrency: 5
+  hold-for: 20s
+  ramp-up: 5s
+  scenario: receiveData
+
 
 reporting:
 - module: passfail

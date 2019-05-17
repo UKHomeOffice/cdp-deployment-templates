@@ -1,0 +1,674 @@
+/tests
+apiVersion: v1
+data:
+  graph-schema.json: "{\n    \"propertyKeys\": [\n      {\n        \"name\": \"P.identity.core.dateOfBirth.DoB\",\n
+    \       \"dataType\": \"Date\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.core.fullName\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.core.gender\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.core.givenNames\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.core.maritalStatus\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.core.nationality\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.core.persons.matchset\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.core.persons.personId\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.core.placeOfBirth\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.core.religion\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.core.surname\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.core.title\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.id\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.meta.m.correlationId\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.meta.m.create\",\n
+    \       \"dataType\": \"Date\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.meta.m.createBy\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.meta.m.createSource\",\n        \"dataType\": \"Date\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.meta.m.identityId\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.meta.m.matchSet\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.meta.m.matchStatus\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.meta.m.owner\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.meta.m.retention.action\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.meta.m.retention.actionDate\",\n        \"dataType\": \"String\",\n
+    \       \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.meta.m.retention.actionRole\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.meta.m.retention.review\",\n        \"dataType\":
+    \"Boolean\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.meta.m.retention.reviewDate\",\n        \"dataType\": \"Date\",\n
+    \       \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.meta.m.source\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.meta.m.type\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.identity.meta.m.update\",\n        \"dataType\": \"Date\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.identity.meta.m.updateBy\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.identity.meta.m.version\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.person.id\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.correlationId\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.person.meta.m.create\",\n        \"dataType\":
+    \"Date\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.person.meta.m.createBy\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.createSource\",\n
+    \       \"dataType\": \"Date\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.person.meta.m.identityId\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.person.meta.m.matchSet\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.matchStatus\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.person.meta.m.owner\",\n        \"dataType\": \"String\",\n
+    \       \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.retention.action\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.person.meta.m.retention.actionDate\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.person.meta.m.retention.actionRole\",\n        \"dataType\": \"String\",\n
+    \       \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.retention.review\",\n
+    \       \"dataType\": \"Boolean\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.person.meta.m.retention.reviewDate\",\n        \"dataType\":
+    \"Date\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.person.meta.m.source\",\n        \"dataType\": \"String\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.type\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n      {\n        \"name\":
+    \"P.person.meta.m.update\",\n        \"dataType\": \"Date\",\n        \"cardinality\":
+    \"SINGLE\"\n      },\n      {\n        \"name\": \"P.person.meta.m.updateBy\",\n
+    \       \"dataType\": \"String\",\n        \"cardinality\": \"SINGLE\"\n      },\n
+    \     {\n        \"name\": \"P.person.meta.m.version\",\n        \"dataType\":
+    \"String\",\n        \"cardinality\": \"SINGLE\"\n      }\n    ],\n    \"vertexLabels\":
+    [\n      {\n        \"name\": \"P.identity\",\n        \"partition\": false,\n
+    \       \"useStatic\": false\n      },\n      {\n        \"name\": \"P.person\",\n
+    \       \"partition\": false,\n        \"useStatic\": false\n      }\n    ],\n
+    \   \"edgeLabels\": [\n      {\n        \"name\": \"API drop\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Arrive at\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"Booked\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Booked on\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"Booking for\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Booking message\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"DCS drop\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Depart from\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"Disembark at\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Embark at\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"Holds\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Identifies\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"Journey with\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Leg\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\": false\n
+    \     },\n      {\n        \"name\": \"Leg from\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Leg to\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\": false\n
+    \     },\n      {\n        \"name\": \"Matched\",\n        \"multiplicity\": \"MULTI\",\n
+    \       \"unidirected\": false\n      },\n      {\n        \"name\": \"On\",\n
+    \       \"multiplicity\": \"MULTI\",\n        \"unidirected\": false\n      },\n
+    \     {\n        \"name\": \"Owns\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"PNR drop\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      },\n      {\n        \"name\":
+    \"Travelled\",\n        \"multiplicity\": \"MULTI\",\n        \"unidirected\":
+    false\n      },\n      {\n        \"name\": \"Travelled with\",\n        \"multiplicity\":
+    \"MULTI\",\n        \"unidirected\": false\n      }\n    ],\n    \"vertexIndexes\":
+    [\n      {\n        \"name\": \"by_P.identity_compositeIdx\",\n        \"unique\":
+    false,\n        \"composite\": true,\n        \"indexOnly\": null,\n        \"mixedIndex\":
+    null,\n        \"propertyKeys\": [\n          \"P.identity.id\"\n        ],\n
+    \       \"propertyKeyMappings\": {\n          \"P.identity.id\": {\n            \"mapping\":
+    \"STRING\"\n          }\n        }\n      },\n      {\n        \"name\": \"by_P.identity_mixedIdx\",\n
+    \       \"unique\": false,\n        \"composite\": false,\n        \"indexOnly\":
+    null,\n        \"mixedIndex\": \"search\",\n        \"propertyKeys\": [\n          \"P.identity.core.dateOfBirth.DoB\",\n
+    \         \"P.identity.core.fullName\",\n          \"P.identity.core.gender\",\n
+    \         \"P.identity.core.givenNames\",\n          \"P.identity.core.maritalStatus\",\n
+    \         \"P.identity.core.nationality\",\n          \"P.identity.core.persons.matchset\",\n
+    \         \"P.identity.core.persons.personId\",\n          \"P.identity.core.placeOfBirth\",\n
+    \         \"P.identity.core.religion\",\n          \"P.identity.core.surname\",\n
+    \         \"P.identity.core.title\",\n          \"P.identity.meta.m.correlationId\",\n
+    \         \"P.identity.meta.m.create\",\n          \"P.identity.meta.m.createBy\",\n
+    \         \"P.identity.meta.m.createSource\",\n          \"P.identity.meta.m.identityId\",\n
+    \         \"P.identity.meta.m.matchSet\",\n          \"P.identity.meta.m.matchStatus\",\n
+    \         \"P.identity.meta.m.owner\",\n          \"P.identity.meta.m.retention.action\",\n
+    \         \"P.identity.meta.m.retention.actionDate\",\n          \"P.identity.meta.m.retention.actionRole\",\n
+    \         \"P.identity.meta.m.retention.review\",\n          \"P.identity.meta.m.retention.reviewDate\",\n
+    \         \"P.identity.meta.m.source\",\n          \"P.identity.meta.m.type\",\n
+    \         \"P.identity.meta.m.update\",\n          \"P.identity.meta.m.updateBy\",\n
+    \         \"P.identity.meta.m.version\"\n        ],\n        \"propertyKeyMappings\":
+    {\n          \"P.identity.core.dateOfBirth.DoB\": {\n            \"mapping\":
+    \"DEFAULT\"\n          },\n          \"P.identity.core.fullName\": {\n            \"mapping\":
+    \"TEXTSTRING\"\n          },\n          \"P.identity.core.gender\": {\n            \"mapping\":
+    \"STRING\"\n          },\n          \"P.identity.core.givenNames\": {\n            \"mapping\":
+    \"TEXTSTRING\"\n          },\n          \"P.identity.core.maritalStatus\": {\n
+    \           \"mapping\": \"STRING\"\n          },\n          \"P.identity.core.nationality\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.core.persons.matchset\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.core.persons.personId\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.core.placeOfBirth\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.core.religion\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.core.surname\":
+    {\n            \"mapping\": \"TEXTSTRING\"\n          },\n          \"P.identity.core.title\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.correlationId\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.create\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.identity.meta.m.createBy\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.createSource\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.identity.meta.m.identityId\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.matchSet\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.matchStatus\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.owner\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.retention.action\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.retention.actionDate\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.retention.actionRole\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.retention.review\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.identity.meta.m.retention.reviewDate\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.identity.meta.m.source\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.type\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.update\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.identity.meta.m.updateBy\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.identity.meta.m.version\":
+    {\n            \"mapping\": \"STRING\"\n          }\n        }\n      },\n      {\n
+    \       \"name\": \"by_P.person_compositeIdx\",\n        \"unique\": false,\n
+    \       \"composite\": true,\n        \"indexOnly\": null,\n        \"mixedIndex\":
+    null,\n        \"propertyKeys\": [\n          \"P.person.id\"\n        ],\n        \"propertyKeyMappings\":
+    {\n          \"P.person.id\": {\n            \"mapping\": \"STRING\"\n          }\n
+    \       }\n      },\n      {\n        \"name\": \"by_P.person_mixedIdx\",\n        \"unique\":
+    false,\n        \"composite\": false,\n        \"indexOnly\": null,\n        \"mixedIndex\":
+    \"search\",\n        \"propertyKeys\": [\n          \"P.person.meta.m.correlationId\",\n
+    \         \"P.person.meta.m.create\",\n          \"P.person.meta.m.createBy\",\n
+    \         \"P.person.meta.m.createSource\",\n          \"P.person.meta.m.identityId\",\n
+    \         \"P.person.meta.m.matchSet\",\n          \"P.person.meta.m.matchStatus\",\n
+    \         \"P.person.meta.m.owner\",\n          \"P.person.meta.m.retention.action\",\n
+    \         \"P.person.meta.m.retention.actionDate\",\n          \"P.person.meta.m.retention.actionRole\",\n
+    \         \"P.person.meta.m.retention.review\",\n          \"P.person.meta.m.retention.reviewDate\",\n
+    \         \"P.person.meta.m.source\",\n          \"P.person.meta.m.type\",\n          \"P.person.meta.m.update\",\n
+    \         \"P.person.meta.m.updateBy\",\n          \"P.person.meta.m.version\"\n
+    \       ],\n        \"propertyKeyMappings\": {\n          \"P.person.meta.m.correlationId\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.create\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.person.meta.m.createBy\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.createSource\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.person.meta.m.identityId\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.matchSet\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.matchStatus\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.owner\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.retention.action\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.retention.actionDate\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.retention.actionRole\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.retention.review\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.person.meta.m.retention.reviewDate\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.person.meta.m.source\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.type\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.update\":
+    {\n            \"mapping\": \"DEFAULT\"\n          },\n          \"P.person.meta.m.updateBy\":
+    {\n            \"mapping\": \"STRING\"\n          },\n          \"P.person.meta.m.version\":
+    {\n            \"mapping\": \"STRING\"\n          }\n        }\n      }\n    ]\n
+    \ }\n  "
+  gremlin-server.yml: |+
+    host: 0.0.0.0
+    port: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+    scriptEvaluationTimeout: 120000
+    threadPoolWorker: ${GRAPHDB_PERSONA_SCHEMA_LOADER_THREAD_POOL_WORKER}
+    gremlinPool: 1
+
+
+    channelizer: org.apache.tinkerpop.gremlin.server.channel.WsAndHttpChannelizer
+
+    graphs: {
+      graph: /opt/graphdb/conf/janusgraph-dynamodb.properties
+    }
+    scriptEngines: {
+      gremlin-groovy: {
+        plugins: { org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin: {},
+                   org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin: {},
+                   org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin: {classImports: [java.lang.Math], methodImports: [java.lang.Math#*]},
+                   org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin: {files: [/opt/graphdb/bin/loadschema-globals.groovy, /opt/graphdb/bin/loadschema-bootstrap.groovy]}
+                   #org.apache.tinkerpop.gremlin.groovy.jsr223.GroovyCompilerGremlinPlugin: {enableThreadInterrupt: true, timedInterrupt: 120000, compilation: COMPILE_STATIC, extensions: org.apache.tinkerpop.gremlin.groovy.jsr223.customizer.FileSandboxExtension }
+                   }}}
+
+    serializers:
+      - { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV1d0, config: { ioRegistries: [org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerIoRegistryV1d0, org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry] ,  useMapperFromGraph: graph}}
+      - { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV1d0, config: { serializeResultToString: true, useMapperFromGraph: graph }}
+      - { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { ioRegistries: [org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerIoRegistryV3d0, org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry] , useMapperFromGraph: graph}}             # application/vnd.gremlin-v3.0+gryo
+      - { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { serializeResultToString: true, useMapperFromGraph: graph }}                                                                       # application/vnd.gremlin-v3.0+gryo-stringd
+      - { className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0, config: { ioRegistries: [org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerIoRegistryV3d0, org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry] }}         # application/json
+    processors:
+      - { className: org.apache.tinkerpop.gremlin.server.op.standard.StandardOpProcessor, config: { maxParameters: 64 }}
+      - { className: org.apache.tinkerpop.gremlin.server.op.session.SessionOpProcessor, config: { maxParameters: 64 , sessionTimeout: 28800000 }}
+      - { className: org.apache.tinkerpop.gremlin.server.op.traversal.TraversalOpProcessor, config: { cacheExpirationTime: 0, cacheMaxSize: 0 }}
+    metrics: {
+      consoleReporter: {enabled: false, interval: 180000},
+      csvReporter: {enabled: false, interval: 180000, fileName: /tmp/gremlin-server-metrics.csv},
+      jmxReporter: {enabled: true},
+      slf4jReporter: {enabled: false, interval: 180000}}
+    strictTransactionManagement: false
+    maxInitialLineLength: 4096
+    maxHeaderSize: 8192
+    maxChunkSize: 8192
+    maxContentLength: 2000000
+    maxAccumulationBufferComponents: 1024
+    resultIterationBatchSize: 64
+    writeBufferLowWaterMark: 32768
+    writeBufferHighWaterMark: 65536
+    ssl: {
+      enabled: false
+    }
+
+
+  janusgraph-dynamodb.properties: |
+    #
+    # Copyright 2014-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    #
+    # Licensed under the Apache License, Version 2.0 (the "License").
+    # You may not use this file except in compliance with the License.
+    # A copy of the License is located at
+    #
+    # http://aws.amazon.com/apache2.0
+    #
+    # or in the "license" file accompanying this file. This file is distributed
+    # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+    # express or implied. See the License for the specific language governing
+    # permissions and limitations under the License.
+    #
+
+    gremlin.graph=org.janusgraph.core.JanusGraphFactory
+    #metrics.enabled=true
+    #metrics.prefix=j
+    #metrics.csv.interval=1000
+    #metrics.csv.directory=metrics
+
+    # Turn off JanusGraph retries as we batch and have our own exponential backoff strategy.
+    storage.write-time=1 ms
+    storage.read-time=1 ms
+
+    storage.backend=com.amazon.janusgraph.diskstorage.dynamodb.DynamoDBStoreManager
+    storage.dynamodb.client.credentials.class-name=com.amazonaws.auth.EnvironmentVariableCredentialsProvider
+    storage.dynamodb.client.credentials.constructor-args=
+    storage.dynamodb.client.signing-region=eu-west-2
+
+    #storage.dynamodb.force-consistent-read=true
+    storage.dynamodb.force-consistent-read=true
+
+    #storage.dynamodb.client.connection-timeout=10000
+    storage.dynamodb.client.connection-timeout=100000
+
+    #storage.dynamodb.client.retry-error-max=0
+    storage.dynamodb.client.retry-error-max=1000
+
+    #storage.dynamodb.client.executor.max-concurrent-operations=1
+    storage.dynamodb.client.executor.max-concurrent-operations=64
+
+    #storage.dynamodb.client.socket.buffer-send-hint=1048576
+    storage.dynamodb.client.socket.buffer-send-hint=10485760
+    #storage.dynamodb.client.socket.buffer-recv-hint=1048576
+    storage.dynamodb.client.socket.buffer-recv-hint=10485760
+
+    #storage.dynamodb.client.socket.timeout=60000
+    storage.dynamodb.client.socket.timeout=600000
+
+    storage.dynamodb.client.endpoint=https://dynamodb.eu-west-2.amazonaws.com
+    storage.dynamodb.prefix=${GRAPHDB_COMMON_NAMESPACE}
+
+    #storage.dynamodb.max-self-throttled-retries=60
+    storage.dynamodb.max-self-throttled-retries=600
+
+    storage.dynamodb.stores.edgestore.initial-capacity-read=1
+    storage.dynamodb.stores.edgestore.initial-capacity-write=1
+    storage.dynamodb.stores.edgestore.read-rate=1
+    storage.dynamodb.stores.edgestore.write-rate=1
+
+    storage.dynamodb.stores.graphindex.initial-capacity-read=1
+    storage.dynamodb.stores.graphindex.initial-capacity-write=1
+    storage.dynamodb.stores.graphindex.read-rate=1
+    storage.dynamodb.stores.graphindex.write-rate=1
+
+    storage.dynamodb.stores.systemlog.initial-capacity-read=1
+    storage.dynamodb.stores.systemlog.initial-capacity-write=1
+    storage.dynamodb.stores.systemlog.read-rate=1
+    storage.dynamodb.stores.systemlog.write-rate=1
+
+    storage.dynamodb.stores.janusgraph_ids.initial-capacity-read=1
+    storage.dynamodb.stores.janusgraph_ids.initial-capacity-write=1
+    storage.dynamodb.stores.janusgraph_ids.read-rate=1
+    storage.dynamodb.stores.janusgraph_ids.write-rate=1
+
+    storage.dynamodb.stores.system_properties.initial-capacity-read=1
+    storage.dynamodb.stores.system_properties.initial-capacity-write=1
+    storage.dynamodb.stores.system_properties.read-rate=1
+    storage.dynamodb.stores.system_properties.write-rate=1
+
+    storage.dynamodb.stores.txlog.initial-capacity-read=1
+    storage.dynamodb.stores.txlog.initial-capacity-write=1
+    storage.dynamodb.stores.txlog.read-rate=1
+    storage.dynamodb.stores.txlog.write-rate=1
+
+    storage.buffer-size=10240000
+    storage.batch-loading=false
+    storage.parallel-backend-ops=true
+
+    tx.max-commit-time=300000
+
+
+
+    # LPPM - 31July2018 - TWEAK This to set the timeout value when the user doesn't have access to the table; the default is 60 seconds (60000) ms
+    storage.setup-wait=15000
+    storage.page-size=1000
+
+
+    # Whether to enable JanusGraph's database-level cache, which is shared
+    # across all transactions. Enabling this option speeds up traversals by
+    # holding hot graph elements in memory, but also increases the likelihood
+    # of reading stale data.  Disabling it forces each transaction to
+    # independently fetch graph elements from storage before reading/writing
+    # them.
+    #
+    # Default:    false
+    # Data Type:  Boolean
+    # Mutability: MASKABLE
+    cache.db-cache = false
+    # WARNING: DO NOT SET THIS TO TRUE; THE CACHE LOGIC IN JANUS IS BROKEN!
+    #cache.db-cache = true
+
+    # How long, in milliseconds, database-level cache will keep entries after
+    # flushing them.  This option is only useful on distributed storage
+    # backends that are capable of acknowledging writes without necessarily
+    # making them immediately visible.
+    #
+    # Default:    50
+    # Data Type:  Integer
+    # Mutability: GLOBAL_OFFLINE
+    #
+    # Settings with mutability GLOBAL_OFFLINE are centrally managed in
+    # JanusGraph's storage backend.  After starting the database for the first
+    # time, this file's copy of this setting is ignored.  Use JanusGraph's
+    # Management System to read or modify this value after bootstrapping.
+    cache.db-cache-clean-wait = 20
+
+    # Default expiration time, in milliseconds, for entries in the
+    # database-level cache. Entries are evicted when they reach this age even
+    # if the cache has room to spare. Set to 0 to disable expiration (cache
+    # entries live forever or until memory pressure triggers eviction when set
+    # to 0).
+    #
+    # Default:    10000
+    # Data Type:  Long
+    # Mutability: GLOBAL_OFFLINE
+    #
+    # Settings with mutability GLOBAL_OFFLINE are centrally managed in
+    # JanusGraph's storage backend.  After starting the database for the first
+    # time, this file's copy of this setting is ignored.  Use JanusGraph's
+    # Management System to read or modify this value after bootstrapping.
+    cache.db-cache-time = 0
+
+    # Size of JanusGraph's database level cache.  Values between 0 and 1 are
+    # interpreted as a percentage of VM heap, while larger values are
+    # interpreted as an absolute size in bytes.
+    #
+    # Default:    0.3
+    # Data Type:  Double
+    # Mutability: MASKABLE
+    cache.db-cache-size = 0.5
+
+    # The indexing backend used to extend and optimize JanusGraph's query
+    # functionality. This setting is optional.  JanusGraph can use multiple
+    # heterogeneous index backends.  Hence, this option can appear more than
+    # once, so long as the user-defined name between "index" and "backend" is
+    # unique among appearances.Similar to the storage backend, this should be
+    # set to one of JanusGraph's built-in shorthand names for its standard
+    # index backends (shorthands: lucene, elasticsearch, es, solr) or to the
+    # full package and classname of a custom/third-party IndexProvider
+    # implementation.
+    #
+    # Default:    elasticsearch
+    # Data Type:  String
+    # Mutability: GLOBAL_OFFLINE
+    #
+    # Settings with mutability GLOBAL_OFFLINE are centrally managed in
+    # JanusGraph's storage backend.  After starting the database for the first
+    # time, this file's copy of this setting is ignored.  Use JanusGraph's
+    # Management System to read or modify this value after bootstrapping.
+    index.search.backend=elasticsearch
+    #index.search.backend=lucene
+
+    # The hostname or comma-separated list of hostnames of index backend
+    # servers.  This is only applicable to some index backends, such as
+    # elasticsearch and solr.
+    #
+    # Default:    127.0.0.1
+    # Data Type:  class java.lang.String[]
+    # Mutability: MASKABLE
+    index.search.hostname=elasticsearch
+    index.search.elasticsearch.client-only=true
+    index.search.elasticsearch.interface=REST_CLIENT
+    #index.search.elasticsearch.create.ext.number_of_shards=60
+    #index.search.elasticsearch.create.ext.number_of_replicas=3
+    #index.search.elasticsearch.create.ext.shard.check_on_startup=true
+    #index.search.elasticsearch.create.ext.refresh_interval=15s
+    #index.search.elasticsearch.bulk-refresh=false
+    ### LPPM - new option to increase the timeout for a failed elastic request
+    #index.search.elasticsearch.connection-request-timeout-millis=5000
+    #
+    index.search.port=${ELASTICSEARCH_CLIENT_PORT}
+    #index.search.elasticsearch.ssl.enabled=true
+    #index.search.elasticsearch.ssl.truststore.location=
+    #index.search.elasticsearch.ssl.truststore.password=
+    #index.search.elasticsearch.ssl.keystore.location=
+    #index.search.elasticsearch.ssl.keystore.keypassword=
+    #index.search.elasticsearch.ssl.keystore.storepassword=
+    ##index.search.elasticsearch.http.auth.type=basic
+    ##index.search.elasticsearch.http.auth.basic.username=estest
+    ##index.search.elasticsearch.http.auth.basic.password=espwd
+    #
+    ## OR....
+    ##index.search.elasticsearch.http.auth.type=custom
+    ##index.search.elasticsearch.http.auth.custom.authenticator-class=xx.xxx.xxx
+    ##index.search.elasticsearch.http.auth.custom.authenticator-args='aaa,bb,ccc'
+
+    index.search.index-name=${GRAPHDB_COMMON_NAMESPACE}
+    index.search.directory=/tmp
+
+    # This option determines whether JanusGraph should throw an exception if a graph query
+    # cannot be answered using an index. Doing solimits the functionality of JanusGraph’s
+    # graph queries but ensures that slow graph queries are avoided on large graphs.
+    # Recommended for production use of JanusGraph.
+    query.force-index=true
+
+    #graph.replace-instance-if-exists=true
+kind: ConfigMap
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  name: tinkerpop-graphdb-schema-loader
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  labels:
+    name: elasticsearch
+    role: service
+  name: elasticsearch
+spec:
+  ports:
+  - name: elastic-client-port
+    port: ${ELASTICSEARCH_CLIENT_PORT}
+    protocol: TCP
+  - name: elastic-server-port
+    port: ${ELASTICSEARCH_SERVER_PORT}
+    protocol: TCP
+  selector:
+    name: elasticsearch
+  sessionAffinity: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  labels:
+    name: tinkerpop-graphdb-schema-loader
+    role: service
+  name: tinkerpop-graphdb-schema-loader
+spec:
+  ports:
+  - name: http
+    port: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+    protocol: TCP
+    targetPort: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+  selector:
+    name: tinkerpop-graphdb-schema-loader
+  sessionAffinity: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  name: elasticsearch
+spec:
+  replicas: ${ELASTICSEARCH_K8S_REPLICAS}
+  selector:
+    matchLabels:
+      name: elasticsearch
+  strategy:
+    rollingUpdate:
+      maxSurge: ${ELASTICSEARCH_K8S_REPLICAS}
+      maxUnavailable: ${ELASTICSEARCH_K8S_REPLICAS_MAX_UNAVAILABLE}
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+      labels:
+        name: elasticsearch
+    spec:
+      containers:
+      - image: ${ELASTICSEARCH_K8S_IMAGE}
+        imagePullPolicy: Always
+        name: elasticsearch
+        ports:
+        - containerPort: ${ELASTICSEARCH_CLIENT_PORT}
+        - containerPort: ${ELASTICSEARCH_SERVER_PORT}
+        resources:
+          limits:
+            cpu: ${ELASTICSEARCH_K8S_LIMITS_CPU}
+            memory: ${ELASTICSEARCH_K8S_LIMITS_MEMORY}
+          requests:
+            cpu: ${ELASTICSEARCH_K8S_REQUESTS_CPU}
+            memory: ${ELASTICSEARCH_K8S_REQUESTS_MEMORY}
+        securityContext:
+          runAsNonRoot: true
+      restartPolicy: Always
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  name: tinkerpop-graphdb-schema-loader
+spec:
+  replicas: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REPLICAS}
+  strategy:
+    rollingUpdate:
+      maxSurge: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REPLICAS}
+      maxUnavailable: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REPLICAS_MAX_UNAVAILABLE}
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+      labels:
+        name: tinkerpop-graphdb-schema-loader
+    spec:
+      containers:
+      - env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: tinkerpop-graphdb
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: tinkerpop-graphdb
+        - name: AWS_DEFAULT_REGION
+          value: eu-west-2
+        - name: PVGDPR_OPTS
+          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap  -Dcom.sun.management.jmxremote
+        image: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_IMAGE}
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /healthcheck/liveliness
+            port: 3001
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        name: tinkerpop-graphdb-schema-loader
+        readinessProbe:
+          httpGet:
+            path: /healthcheck/readiness
+            port: 3001
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        resources:
+          limits:
+            cpu: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_LIMITS_CPU}
+            memory: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_LIMITS_MEMORY}
+          requests:
+            cpu: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REQUESTS_CPU}
+            memory: ${GRAPHDB_PERSONA_SCHEMA_LOADER_K8S_REQUESTS_MEMORY}
+        securityContext:
+          runAsNonRoot: true
+        volumeMounts:
+        - mountPath: /opt/graphdb/conf
+          name: config
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          name: tinkerpop-graphdb-schema-loader
+        name: config
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  name: ingress-network-policy-elasticsearch
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ${KUBE_NAMESPACE}
+    ports:
+    - port: ${ELASTICSEARCH_CLIENT_PORT}
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      name: elasticsearch
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  annotations:
+    downscaler/uptime: Mon-Fri 08:00-19:00 Europe/London
+  name: ingress-network-policy-tinkerpop-graphdb-schema-loader
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ${KUBE_NAMESPACE}
+    ports:
+    - port: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      name: tinkerpop-graphdb-schema-loader

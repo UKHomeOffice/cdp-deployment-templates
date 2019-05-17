@@ -1,0 +1,69 @@
+/tests
+apiVersion: v1
+data:
+  component-test.yml: "---\n  execution:\n  - concurrency: 5\n    hold-for: 30s\n
+    \   ramp-up: 10s\n    scenario: simple\n  \n  scenarios:\n    simple:\n      data-sources:\n
+    \     - graph-add-persons.csv\n      requests:\n      - label: add\n        method:
+    POST\n        url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
+    \       body: |\n          {\"gremlin\": \"g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName',
+    '${PERSON_NAME}')\"}\n"
+  graph-add-persons.csv: |-
+    PERSON_ID,PERSON_NAME
+    1,foo
+    2,bar
+    3,baz
+    4,car
+    5,daz
+    6,fab
+    7,zad
+    8,zab
+    9,wac
+    10,bac
+kind: ConfigMap
+metadata:
+  name: bzt-tests-config
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ${PERF_TEST_NAME}
+spec:
+  backoffLimit: 5
+  activeDeadlineSeconds: ${PERF_TEST_TIMEOUT}
+  template:
+    spec:
+      securityContext:
+        fsGroup: 1000
+
+      containers:
+      - name: taurus-perf-test
+        image: quay.io/ukhomeofficedigital/docker-taurus
+        command: 
+          - sh
+          - -c
+          - "bzt -l bzt.log /bzt-config/${PERF_TEST_CONF_GLOB}"
+
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+
+        volumeMounts:
+          # - name: bzt
+          #   mountPath: /bzt
+
+          - name: bzt-tests-config
+            mountPath: /bzt-config
+
+      restartPolicy: Never
+
+      volumes:
+      # - name: bzt
+      #   hostPath:
+      #     path: /bzt 
+      #     type: Directory
+
+      - name: bzt-tests-config
+        configMap:
+          name: bzt-tests-config
+
+

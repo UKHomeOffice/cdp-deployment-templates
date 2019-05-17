@@ -14,8 +14,10 @@ execution:
 reporting:
 - module: passfail
   criteria:
-  - avg-rt of add>100ms, stop as failed
+  - avg-rt of add>${PERF_TEST_AVG_THRESHOLD}, stop as failed
+  - avg-rt of receive>${PERF_TEST_AVG_THRESHOLD}, stop as failed
   - fail of add>0%, stop as failed
+  - fail of receive>0%, stop as failed
 
 - module: final-stats
   summary: true  # overall samples count and percent of failures
@@ -37,7 +39,7 @@ scenarios:
       body: |
         {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
     criteria:
-      - p90>200ms for 10s
+      - p90>${PERF_TEST_P90_THRESHOLD} for 10s
 
   receiveData:
     data-sources:
@@ -66,7 +68,7 @@ scenarios:
 
 
     criteria:
-      - p90>200ms for 10s    
+      - p90>${PERF_TEST_P90_THRESHOLD} for 10s    
 
       #Average latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms for 10s, stop as failed
       # Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed

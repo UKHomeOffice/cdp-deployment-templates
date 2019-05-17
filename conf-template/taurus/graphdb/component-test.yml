@@ -43,7 +43,7 @@ scenarios:
         {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
     criteria:
       - p90>${PERF_TEST_P90_THRESHOLD} for 10s
-      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s, stop as failed
+      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s
 
   receiveData:
     data-sources:
@@ -73,7 +73,7 @@ scenarios:
 
     criteria:
       - p90>${PERF_TEST_P90_THRESHOLD} for 10s    
-      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s, stop as failed
+      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s
 
       #Average latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms for 10s, stop as failed
       # Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed

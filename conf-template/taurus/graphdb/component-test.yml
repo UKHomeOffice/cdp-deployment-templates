@@ -10,6 +10,11 @@ execution:
   ramp-up: 5s
   scenario: receiveData
 
+- concurrency: 1
+  iterations: 1
+  scenario: cleanup
+
+
 
 reporting:
 - module: passfail
@@ -75,4 +80,12 @@ scenarios:
        #Found unsuccessful query results: failure of QueryResults>0%, stop as failed
 
         
+
+  cleanup:
+    requests:
+    - label: cleanup
+      method: POST
+      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      body: |
+        {"gremlin": "g.V().has('P.identity.id',neq('')).drop()"}
 

@@ -1,12 +1,36 @@
 /tests
 apiVersion: v1
 data:
-  component-test.yml: "---\n  execution:\n  - concurrency: 5\n    hold-for: 30s\n
-    \   ramp-up: 10s\n    scenario: simple\n  \n  scenarios:\n    simple:\n      data-sources:\n
-    \     - graph-add-persons.csv\n      requests:\n      - label: add\n        method:
-    POST\n        url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
-    \       body: |\n          {\"gremlin\": \"g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName',
-    '${PERSON_NAME}')\"}\n"
+  component-test.yml: "---\nexecution:\n- concurrency: 5\n  hold-for: 20s\n  ramp-up:
+    5s\n  scenario: addData\n\n- concurrency: 5\n  hold-for: 20s\n  ramp-up: 5s\n
+    \ scenario: receiveData\n\n- concurrency: 1\n  iterations: 1\n  scenario: cleanup\n\n\n\nreporting:\n-
+    module: passfail\n  criteria:\n  - fail of add>0%, stop as failed\n  - fail of
+    receive>0%, stop as failed\n\n- module: final-stats\n  summary: true  # overall
+    samples count and percent of failures\n  percentiles: true  # display average
+    times and percentiles\n  summary-labels: true # provides list of sample labels,
+    status, percentage of completed, avg time and errors\n  failed-labels: true  #
+    provides list of sample labels with failures\n  test-duration: true  # provides
+    test duration\n  dump-csv: /tmp/test-res.csv\n\n\nscenarios:\n  addData:\n    data-sources:\n
+    \   - graph-add-persons.csv\n    requests:\n    - label: add\n      method: POST\n
+    \     url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
+    \     body: |\n        {\"gremlin\": \"g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName',
+    '${PERSON_NAME}')\"}\n    criteria:\n      - p90>${PERF_TEST_P90_THRESHOLD} for
+    10s\n      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s\n\n  receiveData:\n    data-sources:\n
+    \   - graph-add-persons.csv\n    requests:\n    - label: receive\n      method:
+    POST\n      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
+    \     body: |\n        {\"gremlin\": \"g.V().has('P.identity.id',eq('${PERSON_ID}')).count()\"}\n\n
+    \     extract-jsonpath:\n        status_code: $.status.code\n        num_entries:
+    $.result.data.@value[0].@value\n\n    # branch on `status_code` value\n    - if:
+    '\"${status_code}\" != \"200\"'\n      then:\n        - action: stop-now\n          target:
+    all-threads\n\n    - if: '\"${num_entries}\" == \"0\"'\n      then:\n        -
+    action: stop-now\n          target: all-threads\n\n\n    criteria:\n      - p90>${PERF_TEST_P90_THRESHOLD}
+    for 10s    \n      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s\n\n      #Average
+    latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms
+    for 10s, stop as failed\n      # Average latency of query responses greater than
+    the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed\n       #Found unsuccessful
+    query results: failure of QueryResults>0%, stop as failed\n\n        \n\n  cleanup:\n
+    \   requests:\n    - label: cleanup\n      method: POST\n      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
+    \     body: |\n        {\"gremlin\": \"g.V().has('P.identity.id',neq('')).drop()\"}\n\n"
   graph-add-persons.csv: |-
     PERSON_ID,PERSON_NAME
     1,foo
@@ -28,8 +52,13 @@ kind: Job
 metadata:
   name: ${PERF_TEST_NAME}
 spec:
-  backoffLimit: 5
+  # LPPM - 16May2019 - WARNING: this should be set to zero; 
+  # otherwise, the job will keep on being re-tried and 
+  # cause issues with the test script if SLAs are breached.
+  backoffLimit: 0
   activeDeadlineSeconds: ${PERF_TEST_TIMEOUT}
+  ttlSecondsAfterFinished: 30
+
   template:
     spec:
       securityContext:
@@ -37,7 +66,8 @@ spec:
 
       containers:
       - name: taurus-perf-test
-        image: quay.io/ukhomeofficedigital/docker-taurus
+        image: quay.io/ukhomeofficedigital/docker-taurus:latest
+        imagePullPolicy: Always
         command: 
           - sh
           - -c

@@ -1,18 +1,18 @@
 /tests
 apiVersion: v1
 data:
-  component-test.yml: "---\nexecution:\n- concurrency: 5\n  hold-for: 20s\n  ramp-up:
+  component-test.yml: "---\nexecution:\n- concurrency: 5\n  hold-for: 30s\n  ramp-up:
     5s\n  scenario: addData\n\n- concurrency: 5\n  hold-for: 20s\n  ramp-up: 5s\n
-    \ scenario: receiveData\n\n- concurrency: 1\n  iterations: 1\n  scenario: cleanup\n\n\n\nreporting:\n-
-    module: passfail\n  criteria:\n  - fail of add>0%, stop as failed\n  - fail of
-    receive>0%, stop as failed\n\n- module: final-stats\n  summary: true  # overall
-    samples count and percent of failures\n  percentiles: true  # display average
-    times and percentiles\n  summary-labels: true # provides list of sample labels,
-    status, percentage of completed, avg time and errors\n  failed-labels: true  #
-    provides list of sample labels with failures\n  test-duration: true  # provides
-    test duration\n  dump-csv: /tmp/test-res.csv\n\n\nscenarios:\n  addData:\n    data-sources:\n
-    \   - graph-add-persons.csv\n    requests:\n    - label: add\n      method: POST\n
-    \     url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
+    \ scenario: receiveData\n  delay: 10s\n\n- concurrency: 1\n  iterations: 1\n  scenario:
+    cleanup\n  delay: 40s\n\n\n\nreporting:\n- module: passfail\n  criteria:\n  -
+    fail of add>0%, stop as failed\n  - fail of receive>0%, stop as failed\n\n- module:
+    final-stats\n  summary: true  # overall samples count and percent of failures\n
+    \ percentiles: true  # display average times and percentiles\n  summary-labels:
+    true # provides list of sample labels, status, percentage of completed, avg time
+    and errors\n  failed-labels: true  # provides list of sample labels with failures\n
+    \ test-duration: true  # provides test duration\n  dump-csv: /tmp/test-res.csv\n\n\nscenarios:\n
+    \ addData:\n    data-sources:\n    - graph-add-persons.csv\n    requests:\n    -
+    label: add\n      method: POST\n      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}\n
     \     body: |\n        {\"gremlin\": \"g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName',
     '${PERSON_NAME}')\"}\n    criteria:\n      - p90>${PERF_TEST_P90_THRESHOLD} for
     10s\n      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s\n\n  receiveData:\n    data-sources:\n

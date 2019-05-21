@@ -1,7 +1,7 @@
 ---
 execution:
 - concurrency: 5
-  hold-for: 20s
+  hold-for: 30s
   ramp-up: 5s
   scenario: addData
 
@@ -9,10 +9,12 @@ execution:
   hold-for: 20s
   ramp-up: 5s
   scenario: receiveData
+  delay: 10s
 
 - concurrency: 1
   iterations: 1
   scenario: cleanup
+  delay: 40s
 
 
 

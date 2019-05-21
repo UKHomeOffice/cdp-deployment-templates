@@ -1,17 +1,93 @@
 ---
-  execution:
-  - concurrency: 5
-    hold-for: 30s
-    ramp-up: 10s
-    scenario: simple
-  
-  scenarios:
-    simple:
-      data-sources:
-      - graph-add-persons.csv
-      requests:
-      - label: add
-        method: POST
-        url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
-        body: |
-          {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
+execution:
+- concurrency: 5
+  hold-for: 30s
+  ramp-up: 5s
+  scenario: addData
+
+- concurrency: 5
+  hold-for: 20s
+  ramp-up: 5s
+  scenario: receiveData
+  delay: 10s
+
+- concurrency: 1
+  iterations: 1
+  scenario: cleanup
+  delay: 40s
+
+
+
+reporting:
+- module: passfail
+  criteria:
+  - fail of add>0%, stop as failed
+  - fail of receive>0%, stop as failed
+
+- module: final-stats
+  summary: true  # overall samples count and percent of failures
+  percentiles: true  # display average times and percentiles
+  summary-labels: true # provides list of sample labels, status, percentage of completed, avg time and errors
+  failed-labels: true  # provides list of sample labels with failures
+  test-duration: true  # provides test duration
+  dump-csv: /tmp/test-res.csv
+
+
+scenarios:
+  addData:
+    data-sources:
+    - graph-add-persons.csv
+    requests:
+    - label: add
+      method: POST
+      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      body: |
+        {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
+    criteria:
+      - p90>${PERF_TEST_P90_THRESHOLD} for 10s
+      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s
+
+  receiveData:
+    data-sources:
+    - graph-add-persons.csv
+    requests:
+    - label: receive
+      method: POST
+      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      body: |
+        {"gremlin": "g.V().has('P.identity.id',eq('${PERSON_ID}')).count()"}
+
+      extract-jsonpath:
+        status_code: $.status.code
+        num_entries: $.result.data.@value[0].@value
+
+    # branch on `status_code` value
+    - if: '"${status_code}" != "200"'
+      then:
+        - action: stop-now
+          target: all-threads
+
+    - if: '"${num_entries}" == "0"'
+      then:
+        - action: stop-now
+          target: all-threads
+
+
+    criteria:
+      - p90>${PERF_TEST_P90_THRESHOLD} for 10s    
+      - avg-rt>${PERF_TEST_AVG_THRESHOLD} for 10s
+
+      #Average latency of query responses greater than the SLA (150ms): avg-rt of QueryResponses>150ms for 10s, stop as failed
+      # Average latency of query responses greater than the SLA (15ms): avg-rt of QueryResponses>15ms, stop as failed
+       #Found unsuccessful query results: failure of QueryResults>0%, stop as failed
+
+        
+
+  cleanup:
+    requests:
+    - label: cleanup
+      method: POST
+      url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      body: |
+        {"gremlin": "g.V().has('P.identity.id',neq('')).drop()"}
+

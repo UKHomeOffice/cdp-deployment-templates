@@ -522,9 +522,9 @@ metadata:
 spec:
   ports:
   - name: http
-    port: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+    port: 8182
     protocol: TCP
-    targetPort: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+    targetPort: ${ENVOY_PORT}
   selector:
     name: tinkerpop-graphdb-schema-loader
   sessionAffinity: None
@@ -594,6 +594,39 @@ spec:
         name: tinkerpop-graphdb-schema-loader
     spec:
       containers:
+      - args:
+        - -c
+        - /etc/envoy/envoy.yaml
+        command:
+        - /usr/local/bin/envoy
+        image: docker-hub.digital.homeoffice.gov.uk/envoyproxy/envoy:v${ENVOY_VERSION}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: ${ENVOY_ADMIN_PORT}
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        name: envoy
+        readinessProbe:
+          httpGet:
+            path: /
+            port: ${ENVOY_ADMIN_PORT}
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        resources:
+          limits:
+            cpu: 500m
+            memory: 200Mi
+          requests:
+            cpu: 500m
+            memory: 200Mi
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+        volumeMounts:
+        - mountPath: /etc/envoy
+          name: envoy-config
+          readOnly: true
       - command:
         - /opt/graphdb/bin/run-graph.sh
         - /opt/graphdb/conf/gremlin-server-embedded.yml
@@ -647,6 +680,9 @@ spec:
       restartPolicy: Always
       volumes:
       - configMap:
+          name: envoy
+        name: envoy-config
+      - configMap:
           name: tinkerpop-graphdb-schema-loader
         name: config
 ---
@@ -682,7 +718,7 @@ spec:
         matchLabels:
           name: ${KUBE_NAMESPACE}
     ports:
-    - port: ${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+    - port: ${ENVOY_PORT}
       protocol: TCP
   podSelector:
     matchLabels:

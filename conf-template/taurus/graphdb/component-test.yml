@@ -41,6 +41,8 @@ scenarios:
     - label: add
       method: POST
       url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      headers:
+        Authorization: Bearer ${ACCESS_TOKEN}
       body: |
         {"gremlin": "g.addV('P.identity').property('P.identity.id','${PERSON_ID}').property('P.identity.core.fullName', '${PERSON_NAME}')"}
     criteria:
@@ -54,6 +56,8 @@ scenarios:
     - label: receive
       method: POST
       url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      headers:
+        Authorization: Bearer ${ACCESS_TOKEN}
       body: |
         {"gremlin": "g.V().has('P.identity.id',eq('${PERSON_ID}')).count()"}
 
@@ -88,6 +92,8 @@ scenarios:
     - label: cleanup
       method: POST
       url: http://tinkerpop-graphdb-schema-loader:${GRAPHDB_PERSONA_SCHEMA_LOADER_PORT}
+      headers:
+        Authorization: Bearer ${ACCESS_TOKEN}
       body: |
         {"gremlin": "g.V().has('P.identity.id',neq('')).drop()"}
 

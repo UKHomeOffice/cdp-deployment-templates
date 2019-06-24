@@ -21,35 +21,49 @@ spec:
         image: quay.io/ukhomeofficedigital/docker-taurus:latest
         imagePullPolicy: Always
         env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: bzt-report-write-access-creds
+                key: aws_access_key_id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: bzt-report-write-access-creds
+                key: aws_secret_access_key
           - name: ACCESS_TOKEN
             valueFrom:
               secretKeyRef:
                 name: access-token
                 key: access_token
+          - name: PERF_TESTS_BUCKET
+            valueFrom:
+              secretKeyRef:
+                name: perf-tests-bucket
+                key: perf_tests_bucket
         command: 
+          # run-bzt.sh is mounted from a config map
+          # to allow us to run bzt from the image but also copy the output to S3
           - sh
           - -c
-          - "bzt -l bzt.log /bzt-config/${PERF_TEST_CONF_GLOB}"
+          - "sh /bzt-scripts/run-bzt.sh ${PERF_TEST_CONF_GLOB}"
 
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
 
         volumeMounts:
-          # - name: bzt
-          #   mountPath: /bzt
-
+          - name: bzt-tests-scripts
+            mountPath: /bzt-scripts
           - name: bzt-tests-config
             mountPath: /bzt-config
 
       restartPolicy: Never
 
       volumes:
-      # - name: bzt
-      #   hostPath:
-      #     path: /bzt 
-      #     type: Directory
-
+      - name: bzt-tests-scripts
+        configMap:
+          name: bzt-tests-scripts
       - name: bzt-tests-config
         configMap:
           name: bzt-tests-config
